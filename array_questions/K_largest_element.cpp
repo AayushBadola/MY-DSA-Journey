@@ -36,24 +36,29 @@ int second_largest_better(int arr[], int size){
 }
 
 // BEST APPROACH FOR 2ND LARGEST AND K LARGEST NUMBER IN ARRAY
-int second_largest_best(int arr[], int size, int kth){
-    int large_2;
-    for(int indx = 0; indx<kth;indx++){
-        int max_val_indx = indx;
-        for(int indx2 = indx + 1; indx2< size; indx2++){
-            if(arr[indx2] > arr[max_val_indx]){max_val_indx = indx2;large_2 = arr[max_val_indx];}
-        }
-    }
+int second_largest_best(int arr[], int size){
+    int largest = INT_MIN;
+    int second_largest = INT_MIN;
 
-    return large_2;
-    
+    for(int indx = 0; indx<size; indx++){
+        if(arr[indx] > largest){
+            second_largest = largest;
+            largest = arr[indx];
+        }
+        else if( arr[indx] >second_largest && arr[indx] != largest){
+            second_largest = arr[indx];
+        }
+
+        
+    }
+    return second_largest;
 }
 
 int main(void){
     int arr[10] = {5,10,22,1,4,0,88}; // second largest is 22
     int second_large = second_largest_better(arr,10);
-    int second_largest = second_largest_best(arr,10,2);
-    cout<<second_large;
+    int second_largest = second_largest_best(arr,10);
+    cout<<second_large<<endl;
     cout<<second_largest;
 
 }

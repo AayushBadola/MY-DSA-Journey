@@ -1,0 +1,12 @@
+# Ignore compiled C++ executables
+*.exe
+
+# Ignore object files
+*.o
+*.obj
+
+# Ignore debug symbols
+*.pdb
+
+# Ignore VS Code settings
+.vscode/
