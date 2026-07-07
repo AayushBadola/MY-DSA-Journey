@@ -37,6 +37,7 @@ void rotate_left(int arr[], int size){
 // hence for that we need to start from the place where no reside the last element (N-k-1)
 // so we need to start putting values from (N-K) -> N 
 void rotation_k_brute(int arr[], int size, int rotate_times){
+    rotate_times %= size;
     int temp[rotate_times];
     // storing the elements 
     for(int indx = 0 ;indx<rotate_times;indx++){
@@ -74,8 +75,9 @@ void reverse(int arr[],  int start, int end){
 }
 
 void rotate_k_best(int arr[], int size, int rotate_times){
+    rotate_times %= size;
     reverse(arr,0,rotate_times-1);
-    reverse(arr,rotate_times + 1, size - 1);
+    reverse(arr,rotate_times, size - 1);
     reverse(arr, 0,size - 1);
 }
 
