@@ -79,6 +79,30 @@ int find_missing_best(int arr[], int size){
 
 }
 
+// ################## OPTIMAL SOLUTION (XOR) ###############
+// basically when doing size*size there is a probability that it will cause integer overflow hence 
+// we will use xor 
+// therefore we use xor which does 
+// NUM1 XOR NUM1 = 0
+// NUM1 XOR NUM1 != 0
+// basically we will do XOR(expected) = 1^2^3^4^5
+// now we will basically do XOR(actual) = 1^2^4^5
+// if we do xor(expected) ^ xor(actual) = (1^1)^(2^2)^(3)^(4^4)^(5^5) = 0^0^3^0^0 = 3 -> MISSING NUMBER !
+
+int find_missing_bestest(int arr[],int size){
+    int actual = 0;
+    int expected = 0;
+    
+    for(int indx = 0;indx<size;indx++){
+        actual = actual^(arr[indx]);
+        expected = expected^(indx+1);
+
+    }
+    expected =  expected^(size+1);
+    return expected^actual;
+}
+
+
 
 // ################## MAIN FUNCTION ################33
 int main(void){
@@ -105,5 +129,9 @@ int main(void){
 
     int missing_best = find_missing_best(arr,4);
     cout<<"MIssing number is by BEST APPRAOCH: "<<missing_best;
+    cout<<endl;
+
+    int missing_bestest = find_missing_bestest(arr,4);
+    cout<<"MIssing number is by BESTEST approach: "<<missing_bestest;
     cout<<endl;
 }
