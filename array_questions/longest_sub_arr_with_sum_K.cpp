@@ -104,11 +104,92 @@ int longest_sub_arr_k_better_better(int arr[], int size, int target){
             max_len = max(max_len, indx+1);
         }
         int required = sum - target;
-        if(mpp.find(required!=mpp.end()) ){}
+        if(mpp.find(required)!=mpp.end()){
+            int len= indx - mpp[required];
+            max_len = max(max_len,len);
+        }
+        mpp[sum] = indx;
         
     }
+    return max_len;
 } 
 
+// ####################################### BEST APPROACH ########################################
+// for this we will use 2 pointer approach 
+// here we will try to find the current running sum and as sum increases it will go beyond the point of the sum we are looking for 
+// as it increases we will trim from the left side 
+// again we will go and then trim from the let side 
+// and so on and so forth and while doing that we will try to "log" our current running max length and update it if a bigger appears 
+
+// [1|2|3|1|1|1|1|3|3]  {sum we need is 6}
+// ||                   {current sum = 1}
+// pointer 1 and 2 at start position 
+// [1|2|3|1|1|1|1|3|3] 
+//  | |                 {current sum = 3}
+
+// [1|2|3|1|1|1|1|3|3] 
+//  |   |               {current sum = 3+3 = 6} found length {current length = 3}
+
+// [1|2|3|1|1|1|1|3|3] 
+//  |     |             {current sum = 7} GREATER THAN 6 SHORTEN FROM LEFT 
+
+// [1|2|3|1|1|1|1|3|3] 
+//    |   |             {current sum = 6} {current length = 3 not greater than previous length so not updated }
+
+// [1|2|3|1|1|1|1|3|3] 
+//    |     |           {current sum = 7} short fomr left 
+
+// [1|2|3|1|1|1|1|3|3] 
+//      |   |            {current sum = 5} move to right 
+
+// [1|2|3|1|1|1|1|3|3] 
+//      |     |          {current sum = 6} length updated to 4 
+
+// [1|2|3|1|1|1|1|3|3] 
+//      |       |       {curretn sum = 7} short fomr left 
+
+// [1|2|3|1|1|1|1|3|3] 
+//        |     |      {curretn sum = 4} increase to right 
+
+// [1|2|3|1|1|1|1|3|3] 
+//        |       |    {current sum = 7} reduce left 
+
+// [1|2|3|1|1|1|1|3|3] 
+//          |     |    {current sum = 6} current length = 4 (current length not greater than 4)
+
+// after iterations it will reach the end so return whats the current length 
+
+
+int longest_sub_arr_k_best(int arr[], int size, int target){
+    int current_pointer = 0;
+    int previous_pointer = 0;
+    int sum = 0;
+    int max_len = 0;
+
+    while(current_pointer<size){
+        int curr_len = 0;
+        sum+=arr[current_pointer];
+        
+        if(sum>target){
+            while(sum>target){
+            sum-=arr[previous_pointer];
+            previous_pointer++;
+            }
+        }        
+        
+
+        if(sum == target){
+            curr_len = current_pointer - previous_pointer + 1 ;
+        }
+
+        max_len = max(max_len, curr_len);
+
+
+        current_pointer++;
+
+    }
+    return max_len;
+}
 
 
 
@@ -123,8 +204,12 @@ int main(void){
 
     int longest_sub_arr_brute = longest_sub_sum_K_brute(arr,10,3);
     int longest_sub_arr_better = longest_sub_sum_k_better(arr,10,3);
+    int long_sub_arr_better_better = longest_sub_arr_k_better_better(arr,10,3);
 
+    int long_sub_arr_best = longest_sub_arr_k_best(arr,10,3);
     cout<<"LONGEST SUB ARRAY BY BRUTE FORCE : "<<longest_sub_arr_brute<<endl;
     cout<<"Longest Sub array by BETTER APPROACH : "<<longest_sub_arr_better<<endl;
+    cout<<"Longest Sub array by BETTER BETTER APPROACH : "<<long_sub_arr_better_better<<endl;
+    cout<<"Longest Sub array by BEST APPROACH : "<<long_sub_arr_best<<endl;
 
 }

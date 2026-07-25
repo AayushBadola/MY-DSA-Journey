@@ -1,12 +1,47 @@
-# Ignore compiled C++ executables
+# Executables
 *.exe
+*.out
+*.app
 
-# Ignore object files
+# Object files
 *.o
 *.obj
 
-# Ignore debug symbols
-*.pdb
+# Static & Dynamic Libraries
+*.a
+*.lib
+*.so
+*.dll
+*.dylib
 
-# Ignore VS Code settings
+# Debug files
+*.pdb
+*.idb
+
+# CMake
+build/
+cmake-build-*/
+CMakeFiles/
+CMakeCache.txt
+compile_commands.json
+Makefile
+
+# Visual Studio
+.vs/
+*.vcxproj.user
+
+# VS Code
 .vscode/
+
+# Code::Blocks
+bin/
+obj/
+
+# CLion
+.idea/
+
+# MinGW / GCC
+*.gch
+
+# Logs
+*.log
